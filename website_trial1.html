@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with GPT Bot</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .chat-container {
+            width: 400px;
+            max-width: 100%;
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-header {
+            background-color: #4CAF50;
+            padding: 20px;
+            color: white;
+            text-align: center;
+            font-size: 1.2em;
+        }
+        .chat-box {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            max-height: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .chat-message {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 8px;
+            width: fit-content;
+        }
+        .user-message {
+            background-color: #4CAF50;
+            color: white;
+            align-self: flex-end;
+        }
+        .bot-message {
+            background-color: #eee;
+            color: black;
+            align-self: flex-start;
+        }
+        .chat-input-container {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+            background-color: #fafafa;
+        }
+        .chat-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+        }
+        .send-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 20px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .send-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chat-container">
+    <div class="chat-header">
+        GPT Chatbot
+    </div>
+    <div class="chat-box" id="chat-box">
+        <!-- Chat messages will appear here -->
+    </div>
+    <div class="chat-input-container">
+        <input type="text" id="chat-input" class="chat-input" placeholder="Type a message..." />
+        <button class="send-btn" onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script>
+    const chatBox = document.getElementById('chat-box');
+    const chatInput = document.getElementById('chat-input');
+
+    function sendMessage() {
+        const userMessage = chatInput.value;
+        if (userMessage.trim() === '') return;
+
+        // Display user message
+        displayMessage(userMessage, 'user');
+
+        // Clear the input field
+        chatInput.value = '';
+
+        // Simulate a bot response (replace this with your locally hosted GPT API call)
+        setTimeout(() => {
+            const botMessage = 'This is a response from GPT!';
+            displayMessage(botMessage, 'bot');
+        }, 500); // Simulate response delay
+    }
+
+    function displayMessage(message, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('chat-message', sender === 'user' ? 'user-message' : 'bot-message');
+        messageDiv.textContent = message;
+        chatBox.appendChild(messageDiv);
+
+        // Scroll to the latest message
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    // Allow 'Enter' key to send message
+    chatInput.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            sendMessage();
+        }
+    });
+</script>
+
+</body>
+</html>
