@@ -116,4 +116,4 @@ wheel==0.43.0
 wrapt==1.16.0
 xxhash==3.5.0
 yarl==1.11.1
-gunicorn==20.1.0
+
