@@ -4,10 +4,15 @@ import torch
 
 app = Flask(__name__)
 
-# Load pre-trained model and tokenizer
-model_name = "microsoft/DialoGPT-large"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForCausalLM.from_pretrained(model_name)
+# Load pre-trained model and tokenizer dynamically during runtime
+def load_model():
+    model_name = "microsoft/DialoGPT-large"
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = AutoModelForCausalLM.from_pretrained(model_name)
+    return model, tokenizer
+
+# Load model only when needed (to avoid loading during deployment)
+model, tokenizer = load_model()
 
 def generate_response(prompt):
     # Tokenize input
